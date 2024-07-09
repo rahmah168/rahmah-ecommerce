@@ -127,7 +127,7 @@ function AdminPage({ onCreatedProduct }) {
 
   const modifyProduct = async (id) => {
     if (file) {
-      const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/public/images";
+      const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images";
       const formData = new FormData();
       formData.append("file", file);
       formData.append("fileName", file.name);
@@ -211,7 +211,7 @@ function AdminPage({ onCreatedProduct }) {
               <td>
                 <img
                   variant="top"
-                  src={`images/${p.ProductImage}`}
+                  src={`https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images/${p.ProductImage}`}
                   alt={p.ProductName}
                   className="img-fluid"
                   style={{ maxWidth: '100px' }}
