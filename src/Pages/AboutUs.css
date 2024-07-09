@@ -1,0 +1,71 @@
+
+.about-us {
+    padding: 2rem;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #343a40; 
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #495057; 
+  }
+  
+  .lead {
+    font-size: 1.25rem;
+    color: #6c757d;
+    margin-bottom: 2rem; 
+  }
+  
+  .mission-vision-container {
+    background-color: #f1f1f1;
+    padding: 1.5rem;
+    border-radius: 0.5rem; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); 
+    margin-bottom: 1.5rem; 
+  }
+  
+  .mission-vision-container h2 {
+    color: #0a355a; 
+  }
+  
+  .mission-vision-container p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+  }
+  
+
+  .contact-us {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+  }
+  
+  .contact-us h2 {
+    color: #000000; 
+    margin-bottom: 1rem;
+  }
+  
+  .contact-us p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+  }
+  
+  .contact-us a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .contact-us a:hover {
+    color: #0056b3; 
+    text-decoration: underline;
+  }
+  

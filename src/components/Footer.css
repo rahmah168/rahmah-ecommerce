@@ -1,0 +1,20 @@
+.footer{
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.footer h4{
+    margin-bottom: 25px;
+    margin-top: 20px;
+    font-size: 20px;
+}
+.icons .bi{
+    color: #ffc107;
+    margin: 0 13px;
+    cursor: pointer;
+    padding: 18px 0;
+}
+.bi-suit-heart{
+    color: #ffc107;
+}
