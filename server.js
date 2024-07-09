@@ -16,7 +16,7 @@ app.get('/*', function(req,res){
 
 
 // Serve static files from the 'public/images' directory
-app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+//app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 // Set up storage
 const storage = multer.diskStorage({
