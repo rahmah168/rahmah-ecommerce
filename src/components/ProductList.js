@@ -87,7 +87,7 @@ const ProductList = () => {
 
   return (
     <Container style={{ marginTop: "15vh", position: 'relative' }}>
-      <div style={backgroundImageStyle}></div>
+      <div style={backgroundImageStyle}>
       <div style={contentStyle}>
         <div className="search-filter-container mb-3">
           <Form className="d-flex align-items-center gap-3">
@@ -142,6 +142,7 @@ const ProductList = () => {
             </Col>
           )}
         </Row>
+      </div>
       </div>
     </Container>
   );
