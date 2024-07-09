@@ -68,27 +68,22 @@ const ProductList = () => {
   };
 
   const backgroundImageStyle = {
-    backgroundImage: "url('images/bg2.jpg')",
+    backgroundImage: 'url("/images/bg2.jpg")',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    filter: 'blur(8px)',
+    filter: 'blur(5px) brightness(1.2)',
     position: 'absolute',
     top: 0,
     left: 0,
-    width: '100%',
     height: '100%',
-    zIndex: -1
+    width: '100%',
+    zIndex: -1,
   };
-
-  const contentStyle = {
-    position: 'relative',
-    zIndex: 1
-  };
+  
 
   return (
     <Container style={{ marginTop: "15vh", position: 'relative' }}>
-      <div style={backgroundImageStyle}>
-      <div style={contentStyle}>
+      <div style={backgroundImageStyle}></div>
         <div className="search-filter-container mb-3">
           <Form className="d-flex align-items-center gap-3">
             <Form.Control
@@ -142,8 +137,6 @@ const ProductList = () => {
             </Col>
           )}
         </Row>
-      </div>
-      </div>
     </Container>
   );
 };
