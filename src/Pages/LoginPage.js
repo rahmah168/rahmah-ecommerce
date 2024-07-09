@@ -27,18 +27,13 @@ function LoginPage({ onLogin }) {
       if (response.data && response.data.length > 0) {
         onLogin(response.data);
         navigate("/product");
-        if (user.email === 'admin@gmail.com') {
-          return <navigate to="/admin" />;
-      } else {
-          return <navigate to="/products" />;
-      }
       } else {
         setErrorMessage("Invalid Email or Password");
-        setValidated(false); 
+        setValidated(false); // Ensure the form is marked as invalid
       }
     } catch (error) {
       setErrorMessage("An error occurred. Please try again.");
-      setValidated(false); 
+      setValidated(false); // Ensure the form is marked as invalid
     }
   };
 
