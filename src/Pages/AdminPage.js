@@ -30,7 +30,6 @@ function AdminPage({ onCreatedProduct }) {
       swal("Error", error.message, "error");
     }
   };
-
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -82,13 +81,18 @@ function AdminPage({ onCreatedProduct }) {
     const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images";
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("fileName", file.name);
     const config = {
+      
       headers: {
         "content-type": "multipart/form-data",
       },
     };
+    axios.post(url, formData, config).then((response) => {
+      console.log(response.data);
+    });
+
     try {
-      await axios.post(url, formData, config);
       await axios.post("https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product", {
         productName: productname,
         productDescription: pdesc,
@@ -126,6 +130,7 @@ function AdminPage({ onCreatedProduct }) {
       const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images";
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("fileName", file.name);
       const config = {
         headers: {
           "content-type": "multipart/form-data",
@@ -176,11 +181,12 @@ function AdminPage({ onCreatedProduct }) {
   };
 
   return (
-    <Container fluid className="admin-page-content" style={{ marginTop: "15vh" }}>
+    <Container fluid className="admin-page-content" style={{marginTop: "15vh"}}>
       <h2>Admin Panel</h2>
-      <Button variant="primary" onClick={handleShowAdd}>
-        Add Product
-      </Button>
+        <Button variant="primary" onClick={handleShowAdd}>
+          Add Product
+        </Button>
+      
 
       <Table striped bordered hover responsive className="mt-4 text-wrap">
         <thead>
@@ -216,7 +222,7 @@ function AdminPage({ onCreatedProduct }) {
                 <i className="bi bi-pencil-square"></i>
               </td>
               <td onClick={() => deleteProduct(p.Id)} style={{ cursor: 'pointer' }}>
-                <i className="bi bi-trash3"></i>
+                <i className="bi bi-trash-fill"></i>
               </td>
             </tr>
           ))}
@@ -224,165 +230,157 @@ function AdminPage({ onCreatedProduct }) {
       </Table>
 
       <Modal show={showAdd} onHide={handleCloseAdd}>
-        <Form noValidate validated={validated} onSubmit={handleSubmitAdd}>
-          <Modal.Header closeButton>
-            <Modal.Title>Add Product</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form.Group controlId="formProductName">
+        <Modal.Header closeButton>
+          <Modal.Title>Add Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form noValidate validated={validated} onSubmit={handleSubmitAdd}>
+            <Form.Group className="mb-3" controlId="formProductName">
               <Form.Label>Product Name</Form.Label>
               <Form.Control
                 required
                 type="text"
-                placeholder="Enter product name"
-                value={productname}
+                placeholder="Enter your Product Name"
+                autoFocus
                 onChange={(e) => setProductName(e.target.value)}
               />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Control.Feedback type="invalid">
-                Please enter a product name.
+                Please choose a product name.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formProductDescription">
+            <Form.Group className="mb-3" controlId="formProductDesc">
               <Form.Label>Product Description</Form.Label>
-              <Form.Control
+              <Form.Control as="textarea" rows={3} 
                 required
-                type="text"
                 placeholder="Enter product description"
-                value={pdesc}
                 onChange={(e) => setPDesc(e.target.value)}
               />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Control.Feedback type="invalid">
                 Please enter a product description.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formProductPrice">
+            <Form.Group className="mb-3" controlId="formProductPrice">
               <Form.Label>Product Price</Form.Label>
               <Form.Control
                 required
-                type="number"
+                type="float"
                 placeholder="Enter product price"
-                value={price}
                 onChange={(e) => setProductPrice(e.target.value)}
               />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Control.Feedback type="invalid">
                 Please enter a product price.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formProductCategoryId">
+            <Form.Group className="mb-3" controlId="formCategoryId">
               <Form.Label>Category Id</Form.Label>
               <Form.Control
                 required
                 type="number"
-                placeholder="Enter category id"
-                value={catid}
+                placeholder="Enter Category Id"
                 onChange={(e) => setCatId(e.target.value)}
               />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Control.Feedback type="invalid">
-                Please enter a category id.
+                Please enter a Category Id.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formProductImage">
+            <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Product Image</Form.Label>
-              <Form.Control
-                required
-                type="file"
-                onChange={handleChange}
-              />
-              <Form.Control.Feedback type="invalid">
-                Please select an image.
-              </Form.Control.Feedback>
+              <Form.Control type="file" onChange={handleChange} />
             </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseAdd}>
-              Close
-            </Button>
-            <Button variant="primary" type="submit">
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Form>
+
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseAdd}>
+                Close
+              </Button>
+              <Button variant="primary" type="submit">
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal.Body>
       </Modal>
 
       <Modal show={showEdit} onHide={handleCloseEdit}>
-        <Form noValidate validated={validated} onSubmit={handleSubmitEdit}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Product</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form.Group controlId="formProductName">
+        <Modal.Header closeButton>
+          <Modal.Title>Update Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form noValidate validated={validated} onSubmit={handleSubmitEdit}>
+            <Form.Group className="mb-3" controlId="formProductNameEdit">
               <Form.Label>Product Name</Form.Label>
               <Form.Control
                 required
                 type="text"
-                placeholder="Enter product name"
                 value={productname}
+                placeholder="Enter Product Name"
+                autoFocus
                 onChange={(e) => setProductName(e.target.value)}
               />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Control.Feedback type="invalid">
-                Please enter a product name.
+                Please choose a product name.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formProductDescription">
+            <Form.Group className="mb-3" controlId="formProductDescEdit">
               <Form.Label>Product Description</Form.Label>
-              <Form.Control
+              <Form.Control as="textarea" rows={3} 
                 required
-                type="text"
-                placeholder="Enter product description"
                 value={pdesc}
+                placeholder="Enter product description"
                 onChange={(e) => setPDesc(e.target.value)}
               />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Control.Feedback type="invalid">
                 Please enter a product description.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formProductPrice">
+            <Form.Group className="mb-3" controlId="formProductPriceEdit">
               <Form.Label>Product Price</Form.Label>
               <Form.Control
                 required
-                type="number"
-                placeholder="Enter product price"
+                type="float"
                 value={price}
+                placeholder="Enter product price"
                 onChange={(e) => setProductPrice(e.target.value)}
               />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Control.Feedback type="invalid">
                 Please enter a product price.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formProductCategoryId">
+            <Form.Group className="mb-3" controlId="formCategoryIdEdit">
               <Form.Label>Category Id</Form.Label>
               <Form.Control
                 required
                 type="number"
-                placeholder="Enter category id"
                 value={catid}
+                placeholder="Enter Category Id"
                 onChange={(e) => setCatId(e.target.value)}
               />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Control.Feedback type="invalid">
-                Please enter a category id.
+                Please enter a Category Id.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formProductImage">
+            <Form.Group controlId="formFileEdit" className="mb-3">
               <Form.Label>Product Image</Form.Label>
-              <Form.Control
-                required
-                type="file"
-                onChange={handleChange}
-              />
-              <Form.Control.Feedback type="invalid">
-                Please select an image.
-              </Form.Control.Feedback>
+              <Form.Control type="file" onChange={handleChange} />
             </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseEdit}>
-              Close
-            </Button>
-            <Button variant="primary" type="submit">
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Form>
+
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseEdit}>
+                Close
+              </Button>
+              <Button variant="primary" type="submit">
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal.Body>
       </Modal>
     </Container>
   );
