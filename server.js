@@ -4,26 +4,24 @@ const path = require('path');
 const cors = require('cors');
 
 const app = express();
-// const port = 3002;
 
 // Enable CORS
 app.use(cors());
-app.use(express.static(path.join(__dirname, 'build')))
+app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/*', function(req,res){
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
 
 // Serve static files from the 'public/images' directory
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 // Set up storage
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, path.join(__dirname, 'public', 'images'));
   },
-  filename: function (req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
 });
@@ -35,7 +33,7 @@ app.post('/images', upload.single('file'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
-  res.send({ message: 'File uploaded successfully.' });
+  res.send({ message: 'File uploaded successfully.', file: req.file });
 });
 
 const PORT = process.env.PORT || 5003;
