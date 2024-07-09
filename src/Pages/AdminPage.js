@@ -78,7 +78,7 @@ function AdminPage({ onCreatedProduct }) {
   };
 
   const addProduct = async () => {
-    const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/public/images";
+    const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images";
     const formData = new FormData();
     formData.append("file", file);
     formData.append("fileName", file.name);

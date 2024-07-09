@@ -16,7 +16,7 @@ app.get('/*', function(req,res){
 
 
 // Serve static files from the 'public/images' directory
-app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+//app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 // Set up storage
 const storage = multer.diskStorage({
@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Endpoint to handle file upload
-app.post('https://rahmahsaif-react-8a5b146dcade.herokuapp.com/public/images', upload.single('file'), (req, res) => {
+app.post('/images', upload.single('file'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
