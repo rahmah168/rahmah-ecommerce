@@ -67,66 +67,82 @@ const ProductList = () => {
     setFilteredProducts(filtered);
   };
 
-  const handleAddToCart = (product) => {
-    // Implement your add to cart logic here
-    console.log("Added to cart:", product);
+  const backgroundImageStyle = {
+    backgroundImage: "url('images/bg2.jpg')",
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    filter: 'blur(8px)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: -1
+  };
+
+  const contentStyle = {
+    position: 'relative',
+    zIndex: 1
   };
 
   return (
-    <Container style={{marginTop: "15vh"}}>
-      <div className="search-filter-container mb-3 " >
-        <Form className="d-flex align-items-center gap-3">
-          <Form.Control
-            type="text"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-bar"
-          />
-          <Form.Select
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-            className="category-dropdown"
-          >
-            <option value="">All Categories</option>
-            {categories.map((category) => (
-              <option key={category.CategoryId} value={category.CategoryId}>
-                {category.CategoryName}
-              </option>
-            ))}
-          </Form.Select>
-        </Form>
-      </div>
-      <Row xs={1} md={2} lg={3} className="g-4">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((p) => (
-            <Col key={p.Id}>
-              <Card className="h-100 shadow-sm">
-                <div className="product-image">
-                  <Card.Img
-                    variant="top"
-                    src={`images/${p.ProductImage}`} 
-                    alt={p.ProductName}
-                    className="img-fluid"
-                  />
-                </div>
-                <Card.Body className="d-flex flex-column">
-                  <Card.Title>{p.ProductName}</Card.Title>
-                  <Card.Text style={{ textAlign: 'justify' }}>{p.ProductDescription}</Card.Text>
-                  <Card.Text>Price: {p.ProductPrice} OMR</Card.Text>
-                  <Button variant="primary" onClick={() => handleAddToCart(p)}>
-                    ADD TO CART
-                  </Button>
-                </Card.Body>
-              </Card>
+    <Container style={{ marginTop: "15vh", position: 'relative' }}>
+      <div style={backgroundImageStyle}></div>
+      <div style={contentStyle}>
+        <div className="search-filter-container mb-3">
+          <Form className="d-flex align-items-center gap-3">
+            <Form.Control
+              type="text"
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="search-bar"
+            />
+            <Form.Select
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+              className="category-dropdown"
+            >
+              <option value="">All Categories</option>
+              {categories.map((category) => (
+                <option key={category.CategoryId} value={category.CategoryId}>
+                  {category.CategoryName}
+                </option>
+              ))}
+            </Form.Select>
+          </Form>
+        </div>
+        <Row xs={1} md={2} lg={3} className="g-4">
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((p) => (
+              <Col key={p.Id}>
+                <Card className="h-100 shadow-sm">
+                  <div className="product-image">
+                    <Card.Img
+                      variant="top"
+                      src={`images/${p.ProductImage}`}
+                      alt={p.ProductName}
+                      className="img-fluid"
+                    />
+                  </div>
+                  <Card.Body className="d-flex flex-column">
+                    <Card.Title>{p.ProductName}</Card.Title>
+                    <Card.Text style={{ textAlign: 'justify' }}>{p.ProductDescription}</Card.Text>
+                    <Card.Text>Price: {p.ProductPrice} OMR</Card.Text>
+                    <Button variant="primary" onClick={() => handleAddToCart(p)}>
+                      ADD TO CART
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))
+          ) : (
+            <Col>
+              <p>No products found.</p>
             </Col>
-          ))
-        ) : (
-          <Col>
-            <p>No products found.</p>
-          </Col>
-        )}
-      </Row>
+          )}
+        </Row>
+      </div>
     </Container>
   );
 };
