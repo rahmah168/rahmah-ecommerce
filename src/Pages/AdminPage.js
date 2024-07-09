@@ -83,6 +83,7 @@ function AdminPage({ onCreatedProduct }) {
     formData.append("file", file);
     formData.append("fileName", file.name);
     const config = {
+      
       headers: {
         "content-type": "multipart/form-data",
       },
