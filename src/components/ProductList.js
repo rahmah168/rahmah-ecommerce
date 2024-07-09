@@ -67,24 +67,11 @@ const ProductList = () => {
     setFilteredProducts(filtered);
   };
 
-  const backgroundImageStyle = {
-    backgroundImage: 'url("/images/bg2.jpg")',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    filter: 'blur(5px) brightness(1.2)',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    width: '100%',
-    zIndex: -1,
-  };
+ 
   
 
   return (
     <>
-    <div style={backgroundImageStyle}></div>
-
     <Container style={{ marginTop: "15vh", position: 'relative' }}>
         <div className="search-filter-container mb-3">
           <Form className="d-flex align-items-center gap-3">
