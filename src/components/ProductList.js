@@ -129,7 +129,7 @@ const ProductList = () => {
                     <Card.Title>{p.ProductName}</Card.Title>
                     <Card.Text style={{ textAlign: 'justify' }}>{p.ProductDescription}</Card.Text>
                     <Card.Text>Price: {p.ProductPrice} OMR</Card.Text>
-                    <Button variant="primary" onClick={() => handleAddToCart(p)}>
+                    <Button variant="primary">
                       ADD TO CART
                     </Button>
                   </Card.Body>
