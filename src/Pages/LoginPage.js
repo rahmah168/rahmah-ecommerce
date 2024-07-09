@@ -23,7 +23,7 @@ function LoginPage({ onLogin }) {
     }
 
     try {
-      const response = await axios.get(`http://localhost:3004/api/users/${email}/${password}`);
+      const response = await axios.get(`https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/users/${email}/${password}`);
       if (response.data && response.data.length > 0) {
         onLogin(response.data);
         navigate("/product");

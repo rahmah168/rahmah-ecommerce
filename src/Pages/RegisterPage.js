@@ -28,7 +28,7 @@ function RegisterPage({ onCreatedUser }) {
     }
 
     try {
-      await axios.post("http://localhost:3004/api/users", {
+      await axios.post("https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/users", {
         name: name,
         email: email,
         password: password,

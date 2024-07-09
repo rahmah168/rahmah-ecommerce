@@ -22,7 +22,7 @@ const ProductList = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:3004/api/product");
+      const response = await axios.get("https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product");
       setProducts(response.data);
       setFilteredProducts(response.data);
     } catch (error) {
@@ -32,7 +32,7 @@ const ProductList = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("http://localhost:3004/api/category");
+      const response = await axios.get("https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/category");
       setCategories(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);

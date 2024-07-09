@@ -15,7 +15,7 @@ app.get('/*', function(req,res){
 });
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5003;
 // Serve static files from the 'public/images' directory
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
@@ -39,10 +39,7 @@ app.post('/images', upload.single('file'), (req, res) => {
   res.send({ message: 'File uploaded successfully.' });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
 
 app.listen(PORT, () => {
-  console.log(`Server is running on PORT ${port}`);
+  console.log(`Server is running on PORT ${PORT}`);
 });

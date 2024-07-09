@@ -24,7 +24,7 @@ function AdminPage({ onCreatedProduct }) {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:3004/api/product");
+      const response = await axios.get("https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product");
       setProducts(response.data);
     } catch (error) {
       swal("Error", error.message, "error");
@@ -78,7 +78,7 @@ function AdminPage({ onCreatedProduct }) {
   };
 
   const addProduct = async () => {
-    const url = "http://localhost:3002/images";
+    const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images";
     const formData = new FormData();
     formData.append("file", file);
     formData.append("fileName", file.name);
@@ -92,7 +92,7 @@ function AdminPage({ onCreatedProduct }) {
     });
 
     try {
-      await axios.post("http://localhost:3004/api/product", {
+      await axios.post("https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product", {
         productName: productname,
         productDescription: pdesc,
         productPrice: price,
@@ -111,7 +111,7 @@ function AdminPage({ onCreatedProduct }) {
 
   const getProductEdit = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:3004/api/product/${id}`);
+      const response = await axios.get(`https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product/${id}`);
       setId(response.data[0].Id);
       setProductName(response.data[0].ProductName);
       setPDesc(response.data[0].ProductDescription);
@@ -126,7 +126,7 @@ function AdminPage({ onCreatedProduct }) {
 
   const modifyProduct = async (id) => {
     if (file) {
-      const url = "http://localhost:3002/images";
+      const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images";
       const formData = new FormData();
       formData.append("file", file);
       formData.append("fileName", file.name);
@@ -139,7 +139,7 @@ function AdminPage({ onCreatedProduct }) {
     }
 
     try {
-      await axios.put(`http://localhost:3004/api/product/${id}`, {
+      await axios.put(`https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product/${id}`, {
         id: id,
         productName: productname,
         productDescription: pdesc,
@@ -165,7 +165,7 @@ function AdminPage({ onCreatedProduct }) {
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          await axios.delete(`http://localhost:3004/api/product/${id}`);
+          await axios.delete(`https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product/${id}`);
           fetchProducts();
           swal("Product has been deleted!", {
             icon: "success",
