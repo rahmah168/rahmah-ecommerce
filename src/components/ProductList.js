@@ -82,8 +82,10 @@ const ProductList = () => {
   
 
   return (
+    <>
+    <div style={backgroundImageStyle}></div>
+
     <Container style={{ marginTop: "15vh", position: 'relative' }}>
-      <div style={backgroundImageStyle}></div>
         <div className="search-filter-container mb-3">
           <Form className="d-flex align-items-center gap-3">
             <Form.Control
@@ -138,6 +140,7 @@ const ProductList = () => {
           )}
         </Row>
     </Container>
+    </>
   );
 };
 
