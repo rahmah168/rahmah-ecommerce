@@ -16,6 +16,8 @@ function LoginPage({ onLogin }) {
     event.preventDefault();
     event.stopPropagation();
 
+    const AdminPanale = 'admin@gmail.com'
+
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
@@ -26,7 +28,11 @@ function LoginPage({ onLogin }) {
       const response = await axios.get(`https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/users/${email}/${password}`);
       if (response.data && response.data.length > 0) {
         onLogin(response.data);
-        navigate("/product");
+        if (email === AdminPanale){
+          navigate('/admin')
+        }else{
+          navigate("/product");
+        }
       } else {
         setErrorMessage("Invalid Email or Password");
         setValidated(false); // Ensure the form is marked as invalid
