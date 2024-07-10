@@ -20,7 +20,7 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto" style={{display: "flex", gap: "15px"}}>
             <Nav.Link as={Link} to="/" className="text-white">Home</Nav.Link>
-            <Nav.Link as={Link} to="/admin" className="text-white">Admin</Nav.Link>
+            {/* <Nav.Link as={Link} to="/admin" className="text-white">Admin</Nav.Link> */}
             <Nav.Link as={Link} to="/product" className="text-white">Product</Nav.Link>
             <Nav.Link as={Link} to="/about" className="text-white">About Us</Nav.Link>
           </Nav>
