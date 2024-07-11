@@ -82,6 +82,7 @@ function AdminPage({ onCreatedProduct }) {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("fileName", file.name);
+    alert(file.name)
     const config = {
       
       headers: {
@@ -90,6 +91,7 @@ function AdminPage({ onCreatedProduct }) {
     };
     axios.post(url, formData, config).then((response) => {
       console.log("im in console post")
+      alert("inside axios post")
       console.log(response.data);
     });
 
@@ -235,7 +237,7 @@ function AdminPage({ onCreatedProduct }) {
           <Modal.Title>Add Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form noValidate validated={validated} onSubmit={handleSubmitAdd}>
+          <Form method="post" encType="multipart/form-data" noValidate validated={validated} onSubmit={handleSubmitAdd}>
             <Form.Group className="mb-3" controlId="formProductName">
               <Form.Label>Product Name</Form.Label>
               <Form.Control
