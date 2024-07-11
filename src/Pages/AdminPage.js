@@ -95,6 +95,7 @@ function AdminPage({ onCreatedProduct }) {
       await axios.post(url, formData, config).then((response) => {
         console.log("im in console post")
         alert("inside axios post")
+        alert(response.data);
         console.log(response.data);
       });
   
@@ -130,7 +131,7 @@ function AdminPage({ onCreatedProduct }) {
     }
   };
 
-  const modifyProduct = async (id) => {
+  const modifyProduct = async (id)=> {
     if (file) {
       const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images";
       const formData = new FormData();
