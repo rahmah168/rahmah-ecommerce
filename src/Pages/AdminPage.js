@@ -24,7 +24,9 @@ function AdminPage({ onCreatedProduct }) {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product");
+      const response = await axios.get(
+        "https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product"
+      );
       setProducts(response.data);
     } catch (error) {
       swal("Error", error.message, "error");
@@ -78,47 +80,52 @@ function AdminPage({ onCreatedProduct }) {
   };
 
   const addProduct = async () => {
+    console.log('File to be uploaded:', file);
     const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images";
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("fileName", file.name);
-    alert(file.name)
     const config = {
-      
       headers: {
         "content-type": "multipart/form-data",
       },
     };
-  
+    
     try {
-
-      await axios.post(url, formData, config).then((response) => {
-        console.log("im in console post")
-        alert("inside axios post")
-        alert(response.data);
-        console.log(response.data);
-      });
+      const uploadResponse = await axios.post(url, formData, config);
+      console.log('File upload response:', uploadResponse);
   
-      await axios.post("https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product", {
-        productName: productname,
-        productDescription: pdesc,
-        productPrice: price,
-        productImage: image,
-        categoryid: catid,
-      });
-      onCreatedProduct();
-      fetchProducts();
-      setValidated(false);
-      handleCloseAdd();
-      swal("Success", "Product added successfully!", "success");
-    } catch (error) {
-      swal("Error", error.message, "error");
+      // Proceed with adding product to the database
+      try {
+        const productResponse = await axios.post("https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product", {
+          productName: productname,
+          productDescription: pdesc,
+          productPrice: price,
+          productImage: uploadResponse.data.fileName || image,
+          categoryid: catid,
+        });
+  
+        console.log('Product add response:', productResponse);
+        onCreatedProduct();
+        fetchProducts();
+        setValidated(false);
+        handleCloseAdd();
+        swal("Success", "Product added successfully!", "success");
+      } catch (error) {
+        console.error('Error adding product:', error);
+        swal("Error", error.message, "error");
+      }
+    } catch (uploadError) {
+      console.error('File upload error:', uploadError);
+      swal("Error", uploadError.message, "error");
     }
   };
 
+  
   const getProductEdit = async (id) => {
     try {
-      const response = await axios.get(`https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product/${id}`);
+      const response = await axios.get(
+        `https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product/${id}`
+      );
       setId(response.data[0].Id);
       setProductName(response.data[0].ProductName);
       setPDesc(response.data[0].ProductDescription);
@@ -131,7 +138,7 @@ function AdminPage({ onCreatedProduct }) {
     }
   };
 
-  const modifyProduct = async (id)=> {
+  const modifyProduct = async (id) => {
     if (file) {
       const url = "https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images";
       const formData = new FormData();
@@ -146,14 +153,17 @@ function AdminPage({ onCreatedProduct }) {
     }
 
     try {
-      await axios.put(`https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product/${id}`, {
-        id: id,
-        productName: productname,
-        productDescription: pdesc,
-        productPrice: price,
-        productImage: image,
-        categoryid: catid,
-      });
+      await axios.put(
+        `https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product/${id}`,
+        {
+          id: id,
+          productName: productname,
+          productDescription: pdesc,
+          productPrice: price,
+          productImage: image,
+          categoryid: catid,
+        }
+      );
       fetchProducts();
       handleCloseEdit();
       swal("Success", "Product updated successfully!", "success");
@@ -172,7 +182,9 @@ function AdminPage({ onCreatedProduct }) {
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          await axios.delete(`https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product/${id}`);
+          await axios.delete(
+            `https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product/${id}`
+          );
           fetchProducts();
           swal("Product has been deleted!", {
             icon: "success",
@@ -187,12 +199,15 @@ function AdminPage({ onCreatedProduct }) {
   };
 
   return (
-    <Container fluid className="admin-page-content" style={{marginTop: "15vh"}}>
+    <Container
+      fluid
+      className="admin-page-content"
+      style={{ marginTop: "15vh" }}
+    >
       <h2>Admin Panel</h2>
-        <Button variant="primary" onClick={handleShowAdd}>
-          Add Product
-        </Button>
-      
+      <Button variant="primary" onClick={handleShowAdd}>
+        Add Product
+      </Button>
 
       <Table striped bordered hover responsive className="mt-4 text-wrap">
         <thead>
@@ -220,14 +235,20 @@ function AdminPage({ onCreatedProduct }) {
                   src={`https://rahmahsaif-react-8a5b146dcade.herokuapp.com/images/${p.ProductImage}`}
                   alt={p.ProductName}
                   className="img-fluid"
-                  style={{ maxWidth: '100px' }}
+                  style={{ maxWidth: "100px" }}
                 />
               </td>
               <td>{p.CategoryId}</td>
-              <td onClick={() => getProductEdit(p.Id)} style={{ cursor: 'pointer' }}>
+              <td
+                onClick={() => getProductEdit(p.Id)}
+                style={{ cursor: "pointer" }}
+              >
                 <i className="bi bi-pencil-square"></i>
               </td>
-              <td onClick={() => deleteProduct(p.Id)} style={{ cursor: 'pointer' }}>
+              <td
+                onClick={() => deleteProduct(p.Id)}
+                style={{ cursor: "pointer" }}
+              >
                 <i className="bi bi-trash-fill"></i>
               </td>
             </tr>
@@ -240,7 +261,13 @@ function AdminPage({ onCreatedProduct }) {
           <Modal.Title>Add Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form method="post" encType="multipart/form-data" noValidate validated={validated} onSubmit={handleSubmitAdd}>
+          <Form
+            method="post"
+            encType="multipart/form-data"
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmitAdd}
+          >
             <Form.Group className="mb-3" controlId="formProductName">
               <Form.Label>Product Name</Form.Label>
               <Form.Control
@@ -257,7 +284,9 @@ function AdminPage({ onCreatedProduct }) {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formProductDesc">
               <Form.Label>Product Description</Form.Label>
-              <Form.Control as="textarea" rows={3} 
+              <Form.Control
+                as="textarea"
+                rows={3}
                 required
                 placeholder="Enter product description"
                 onChange={(e) => setPDesc(e.target.value)}
@@ -333,7 +362,9 @@ function AdminPage({ onCreatedProduct }) {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formProductDescEdit">
               <Form.Label>Product Description</Form.Label>
-              <Form.Control as="textarea" rows={3} 
+              <Form.Control
+                as="textarea"
+                rows={3}
                 required
                 value={pdesc}
                 placeholder="Enter product description"
