@@ -92,12 +92,7 @@ function AdminPage({ onCreatedProduct }) {
   
     try {
 
-      await axios.post(url, formData, config).then((response) => {
-        console.log("im in console post")
-        alert("inside axios post")
-        alert(response.data);
-        console.log(response.data);
-      });
+      await axios.post(url, formData, config);
   
       await axios.post("https://rahmahsaif-app-9ed0f6bb8452.herokuapp.com/api/product", {
         productName: productname,
