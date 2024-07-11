@@ -35,11 +35,11 @@ function LoginPage({ onLogin }) {
         }
       } else {
         setErrorMessage("Invalid Email or Password");
-        setValidated(false); // Ensure the form is marked as invalid
+        setValidated(false); 
       }
     } catch (error) {
       setErrorMessage("An error occurred. Please try again.");
-      setValidated(false); // Ensure the form is marked as invalid
+      setValidated(false); 
     }
   };
 
@@ -56,7 +56,7 @@ function LoginPage({ onLogin }) {
               placeholder="name@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              isInvalid={validated && !email} // Display invalid state based on validation and empty value
+              isInvalid={validated && !email} 
               className="form-control-lg"
             />
             <Form.Control.Feedback type="invalid">

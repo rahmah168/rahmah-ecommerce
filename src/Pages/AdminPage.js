@@ -89,6 +89,7 @@ function AdminPage({ onCreatedProduct }) {
       },
     };
     axios.post(url, formData, config).then((response) => {
+      console.log("im in console post")
       console.log(response.data);
     });
 
